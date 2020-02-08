@@ -24,6 +24,11 @@ class BookingTest:
     def __init__(self, path):
         self._path = path
 
+        if self.gecko.match(self.path):
+            self._browser = webdriver.Firefox(executable_path=self.path)
+        else:
+            self._browser = webdriver.Chrome(executable_path=self.path)
+
     @property
     def path(self):
         return self._path
@@ -32,14 +37,13 @@ class BookingTest:
     def path(self, value):
         self._path = value
 
+    @property
+    def browser(self):
+        return self._browser
+
     def first_scenario(self, n):
-
+        browser = self.browser
         children = int(n)
-
-        if self.gecko.match(self.path):
-            browser = webdriver.Firefox(executable_path=self.path)
-        else:
-            browser = webdriver.Chrome(executable_path=self.path)
 
         browser.get(self.url)
         wait = WebDriverWait(browser, 40)
@@ -62,4 +66,12 @@ class BookingTest:
         return count_age_inputs
 
     def second_scenario(self):
-        pass
+        browser = self.browser
+        browser.get(self.url)
+        browser.implicitly_wait(60)
+        first_city = browser.find_element_by_css_selector("div.promotion-postcard__large:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1)")
+        first_city.click()
+
+        browser.implicitly_wait(60)
+
+        browser.close()

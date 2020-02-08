@@ -4,7 +4,7 @@ import os
 
 
 """
-Definition of operating system and current path to project
+Defining the operating system and current path to project
 """
 PROJECT_PATH = str(Path(os.getcwd()).parents[0])
 DRIVERS_PATH = os.path.join(PROJECT_PATH, 'drivers')
@@ -23,6 +23,5 @@ elif SYSTEM == 'posix':
 
 
 if __name__ == "__main__":
-    b = BookingTest(ChromeDriver)
-    print(b.__doc__)
-    print(b.first_scenario(3))
+    b = BookingTest(FireFoxDriver)
+    print(b.second_scenario())
